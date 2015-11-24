@@ -200,7 +200,8 @@ function dir_document_root_create($dir_project_document_root_path)
         if ($answer === 'y') {
             dir_remove_recursive($dir_project_document_root_path);
         } elseif ($answer === 'n') {
-            exit(console_message("Process was interrupted by the user.", CONSOLE_MESSAGE_ERROR));
+            exit(console_message("Process was interrupted by the user.",
+                CONSOLE_MESSAGE_ERROR));
         }
     }
 
@@ -221,14 +222,13 @@ function dir_document_root_create($dir_project_document_root_path)
  */
 function script_entry_create($hostname, $dir_project_document_root_path)
 {
-    $script = "<?php print '$hostname.local is working!';" . PHP_EOL;
-    if (file_put_contents("$dir_project_document_root_path/index.php",
-            $script) !== false
-    ) {
-        print console_message("Entry script \"$dir_project_document_root_path/index.php\" file was created.",
+    $script_path = "$dir_project_document_root_path/index.php";
+    $script_code = "<?php print '$hostname.local is working!';" . PHP_EOL;
+    if (file_put_contents($script_path, $script_code) !== false) {
+        print console_message("Entry script \"$script_path\" file was created.",
             CONSOLE_MESSAGE_SUCCESS);
     } else {
-        exit(console_message("File \"$dir_project_document_root_path/index.php\" creation error. Check permissions.",
+        exit(console_message("File \"$script_path\" creation error. Check permissions.",
             CONSOLE_MESSAGE_ERROR));
     }
 }
@@ -264,13 +264,13 @@ function host_test($host)
 function dir_remove_recursive($dir_name)
 {
     if (is_dir($dir_name)) {
-        $objects = scandir($dir_name);
-        foreach ($objects as $object) {
-            if ($object != "." && $object != "..") {
-                if (is_dir($dir_name . "/" . $object)) {
-                    dir_remove_recursive("$dir_name/$object");
+        $items = scandir($dir_name);
+        foreach ($items as $item) {
+            if ($item != "." && $item != "..") {
+                if (is_dir($dir_name . "/" . $item)) {
+                    dir_remove_recursive("$dir_name/$item");
                 } else {
-                    unlink("$dir_name/$object");
+                    unlink("$dir_name/$item");
                 }
             }
         }
