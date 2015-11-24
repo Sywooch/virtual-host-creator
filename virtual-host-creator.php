@@ -14,7 +14,7 @@ if (posix_getuid() != 0) {
     exit(console_message("You should run this command as root user.",
         CONSOLE_MESSAGE_ERROR));
 } elseif ($argc !== 3) {
-    exit(console_message("Usage: {$argv[0]} <HOSTNAME> <APACHE_DOCUMENT_ROOT_DIRECTORY_ABSOLUTE_PATH>.",
+    exit(console_message("Example usage: php {$argv[0]} <HOSTNAME> <APACHE_DOCUMENT_ROOT_DIRECTORY_ABSOLUTE_PATH>.",
         CONSOLE_MESSAGE_WARNING));
 }
 
