@@ -267,7 +267,7 @@ function dir_remove_recursive($dir_name)
         $items = scandir($dir_name);
         foreach ($items as $item) {
             if ($item != "." && $item != "..") {
-                if (is_dir($dir_name . "/" . $item)) {
+                if (is_dir("$dir_name/$item")) {
                     dir_remove_recursive("$dir_name/$item");
                 } else {
                     unlink("$dir_name/$item");
