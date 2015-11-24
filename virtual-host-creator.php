@@ -195,12 +195,12 @@ function dir_document_root_create($dir_project_document_root_path)
             print console_message("Please select one of the answers.",
                 CONSOLE_MESSAGE_WARNING);
             print console_message("Rewrite directory (this operation can harm your data)? (Y/N)");
-            $answer = strtolower(fgets(STDIN, 1));
+            $answer = strtolower(trim(fgets(STDIN)));
         }
         if ($answer === 'y') {
             dir_remove_recursive($dir_project_document_root_path);
         } elseif ($answer === 'n') {
-            exit(1);
+            exit(console_message("Process was interrupted by the user.", CONSOLE_MESSAGE_ERROR));
         }
     }
 
