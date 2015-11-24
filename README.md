@@ -5,11 +5,11 @@ Simple script to automate the routine work
 
 # Usage
 **NOTE:** PHP Version >= 5.4.
-
+**Example usage:**
 ```
 # php virtual-host-creator.php <HOSTNAME> <APACHE_DOCUMENT_ROOT_DIRECTORY_ABSOLUTE_PATH>
 ```
-# Example output
+**Example output:**
 ```
  Success: Virtual host config file "/etc/apache2/sites-available/vhc-test.conf" was created. 
  Success: Virtual host config file "/etc/apache2/sites-enabled/vhc-test.conf" was created. 
