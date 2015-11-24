@@ -1,5 +1,5 @@
-# Virtual Host Creator Utility
-Apache virtual host creation utility (Ubuntu 14.04 / Apache 2.4.7)
+# Virtual Host Creator
+Apache virtual host creation script (Ubuntu 14.04 / Apache 2.4.7)
 
 # Usage
 **NOTE:** Utility requires PHP Version >= 5.4.
