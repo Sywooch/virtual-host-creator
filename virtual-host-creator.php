@@ -234,7 +234,7 @@ function script_entry_create($hostname, $dir_project_document_root_path)
 }
 
 /**
- * Sends requests to the hosts
+ * Sends request to the host
  *
  * @param string $host
  * @return string bool if host is available, otherwise false
@@ -290,7 +290,7 @@ function path_sanitize($path)
 }
 
 /**
- * Colourises messages for console output
+ * Formats message for the console output
  *
  * @param string $message message to colourise
  * @param string $type type of the message: error, warning, success, info
