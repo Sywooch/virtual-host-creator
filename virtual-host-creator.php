@@ -314,7 +314,7 @@ function console_message($message, $type = CONSOLE_MESSAGE_DEFAULT)
         case 'success': { // green
             return $colourise("Success: $message", '0;32');
         }
-        case CONSOLE_MESSAGE_INFO: {
+        case CONSOLE_MESSAGE_INFO: { // blue
             return $colourise("Info: $message", '0;34');
         }
         default: { // white
