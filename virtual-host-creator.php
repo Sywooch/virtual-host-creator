@@ -57,10 +57,10 @@ function service_apache($command)
 }
 
 /**
- * Generates apache virtual host config data for project
+ * Generates apache virtual host config data for host
  *
- * @param string $hostname project name
- * @param string $dir_document_root_path project document root path
+ * @param string $hostname host name
+ * @param string $dir_document_root_path host document root path
  * @return string configuration data
  */
 function config_apache_virtual_host_generate($hostname, $dir_document_root_path)
@@ -87,10 +87,10 @@ function config_apache_virtual_host_generate($hostname, $dir_document_root_path)
 }
 
 /**
- * Creates apache virtual host config files for project
+ * Creates apache virtual host config files for host
  *
- * @param string $hostname project name
- * @param string $dir_document_root_path project document root path
+ * @param string $hostname host name
+ * @param string $dir_document_root_path host document root path
  */
 function config_apache_virtual_host_create($hostname, $dir_document_root_path)
 {
@@ -129,9 +129,9 @@ function config_apache_virtual_host_create($hostname, $dir_document_root_path)
 }
 
 /**
- * Generates system hosts config data for project
+ * Generates system hosts config data for host
  *
- * @param string $hostname project name
+ * @param string $hostname host name
  * @return string
  */
 function config_hosts_generate($hostname)
@@ -140,9 +140,9 @@ function config_hosts_generate($hostname)
 }
 
 /**
- * Creates system hosts configuration for project
+ * Creates system hosts configuration for host
  *
- * @param $name string project name
+ * @param $name string host name
  */
 function config_hosts_create($name)
 {
@@ -181,8 +181,8 @@ function config_hosts_create($name)
 }
 
 /**
- * Creates project document root folder
- * @param string $dir_project_document_root_path project document root path
+ * Creates host document root folder
+ * @param string $dir_project_document_root_path host document root path
  */
 function dir_document_root_create($dir_project_document_root_path)
 {
@@ -215,10 +215,10 @@ function dir_document_root_create($dir_project_document_root_path)
 }
 
 /**
- * Creates simple entry script "index.php" in the project document root folder
+ * Creates simple entry script "index.php" in the host document root folder
  *
- * @param string $hostname project name
- * @param string $dir_project_document_root_path project document root path
+ * @param string $hostname host name
+ * @param string $dir_project_document_root_path host document root path
  */
 function script_entry_create($hostname, $dir_project_document_root_path)
 {
