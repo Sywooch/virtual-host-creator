@@ -60,7 +60,7 @@ function service_apache($command)
  * Generates apache virtual host config data for host
  *
  * @param string $hostname host name
- * @param string $dir_document_root_path host document root path
+ * @param string $dir_document_root_path document root path
  * @return string configuration data
  */
 function config_apache_virtual_host_generate($hostname, $dir_document_root_path)
@@ -90,7 +90,7 @@ function config_apache_virtual_host_generate($hostname, $dir_document_root_path)
  * Creates apache virtual host config files for host
  *
  * @param string $hostname host name
- * @param string $dir_document_root_path host document root path
+ * @param string $dir_document_root_path document root path
  */
 function config_apache_virtual_host_create($hostname, $dir_document_root_path)
 {
