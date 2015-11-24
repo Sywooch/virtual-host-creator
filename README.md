@@ -12,7 +12,7 @@ Simple script to automate the routine work
 ```
 **Example output:**
 ```
-sudo php virtual-host-creator.php vhc-test /var/www/html
+username@hostname:~$ sudo php virtual-host-creator.php vhc-test /var/www/html
 
  Success: Virtual host config file "/etc/apache2/sites-available/vhc-test.conf" was created. 
  Success: Virtual host config file "/etc/apache2/sites-enabled/vhc-test.conf" was created. 
