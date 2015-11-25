@@ -293,7 +293,7 @@ function path_sanitize($path)
  * @param string $message message to colourise
  * @param string $type type of the message: error, warning, success, info
  * @param string $custom_type_title custom title prefix before every message
- * @return string colourised message
+ * @return string formatted message
  */
 function console_message(
     $message,
