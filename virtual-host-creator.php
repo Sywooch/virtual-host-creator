@@ -96,20 +96,17 @@ function config_apache_virtual_host_create($hostname, $dir_document_root_path)
 {
     $dir_path_sites_available = "/etc/apache2/sites-available";
     if (!is_writable($dir_path_sites_available)) {
-        exit(console_message("Directory \"$dir_path_sites_available\" is not writable",
-            CONSOLE_MESSAGE_ERROR));
+        exit(console_message("Directory \"$dir_path_sites_available\" is not writable", CONSOLE_MESSAGE_ERROR));
     }
 
     $dir_path_sites_enabled = '/etc/apache2/sites-enabled';
     if (!is_writable($dir_path_sites_enabled)) {
-        exit(console_message("Directory \"$dir_path_sites_enabled\" is not writable",
-            CONSOLE_MESSAGE_ERROR));
+        exit(console_message("Directory \"$dir_path_sites_enabled\" is not writable", CONSOLE_MESSAGE_ERROR));
     }
 
     $config_path_sites_available = "$dir_path_sites_available/$hostname.conf";
-    if (file_put_contents($config_path_sites_available,
-            config_apache_virtual_host_generate($hostname,
-                $dir_document_root_path)) !== false
+    if (file_put_contents($config_path_sites_available, config_apache_virtual_host_generate($hostname,
+            $dir_document_root_path)) !== false
     ) {
         print console_message("Virtual host config file \"$config_path_sites_available\" was created.",
             CONSOLE_MESSAGE_SUCCESS);
@@ -148,8 +145,7 @@ function config_hosts_create($name)
 {
     $config_path_hosts = '/etc/hosts';
     if (!is_writable($config_path_hosts)) {
-        exit(console_message("Config file \"$config_path_hosts\" is not writable.",
-            CONSOLE_MESSAGE_ERROR));
+        exit(console_message("Config file \"$config_path_hosts\" is not writable.", CONSOLE_MESSAGE_ERROR));
     }
 
     $config_path_file_handler = fopen($config_path_hosts,
@@ -164,12 +160,10 @@ function config_hosts_create($name)
     }
     fclose($config_path_file_handler);
 
-    if (isset($config_exists) || file_put_contents($config_path_hosts,
-            config_hosts_generate($name),
+    if (isset($config_exists) || file_put_contents($config_path_hosts, config_hosts_generate($name),
             FILE_APPEND) !== false
     ) {
-        print console_message("Config file \"$config_path_hosts\" was updated.",
-            CONSOLE_MESSAGE_SUCCESS);
+        print console_message("Config file \"$config_path_hosts\" was updated.", CONSOLE_MESSAGE_SUCCESS);
     } else {
         exit(console_message("Config file \"$config_path_hosts\" updating error. Check permissions.",
             CONSOLE_MESSAGE_ERROR));
@@ -188,8 +182,7 @@ function dir_document_root_create($dir_project_document_root_path)
         print console_message("Rewrite directory content (this operation will harm your data)? / Don't rewrite directory content? (Y/N)");
         $answer = strtolower(readline());
         while ($answer !== 'y' && $answer !== 'n') {
-            print console_message("Please select one of the answers.",
-                CONSOLE_MESSAGE_WARNING);
+            print console_message("Please select one of the answers.", CONSOLE_MESSAGE_WARNING);
             print console_message("Rewrite directory content (this operation will harm your data)? / Don't rewrite directory content? (Y/N)");
             $answer = strtolower(trim(fgets(STDIN)));
         }
@@ -219,11 +212,9 @@ function script_entry_create($hostname, $dir_project_document_root_path)
     $script_path = "$dir_project_document_root_path/index.php";
     $script_code = "<?php print '$hostname.local is working!';" . PHP_EOL;
     if (file_put_contents($script_path, $script_code) !== false) {
-        print console_message("Entry script \"$script_path\" file was created.",
-            CONSOLE_MESSAGE_SUCCESS);
+        print console_message("Entry script \"$script_path\" file was created.", CONSOLE_MESSAGE_SUCCESS);
     } else {
-        exit(console_message("File \"$script_path\" creation error. Check permissions.",
-            CONSOLE_MESSAGE_ERROR));
+        exit(console_message("File \"$script_path\" creation error. Check permissions.", CONSOLE_MESSAGE_ERROR));
     }
 }
 
@@ -240,11 +231,9 @@ function host_test($host)
 
     $success = file_get_contents($host) !== false;
     if ($success) {
-        print console_message("Hostname \"$host\" is available.",
-            CONSOLE_MESSAGE_SUCCESS);
+        print console_message("Hostname \"$host\" is available.", CONSOLE_MESSAGE_SUCCESS);
     } else {
-        print console_message("Can't get access to the \"$host\".",
-            CONSOLE_MESSAGE_ERROR);
+        print console_message("Can't get access to the \"$host\".", CONSOLE_MESSAGE_ERROR);
     }
 
     return $success;
@@ -291,11 +280,8 @@ function path_sanitize($path)
  * @param string $custom_type_title custom title prefix before every message
  * @return string formatted message
  */
-function console_message(
-    $message,
-    $type = CONSOLE_MESSAGE_DEFAULT,
-    $custom_type_title = false
-) {
+function console_message($message, $type = CONSOLE_MESSAGE_DEFAULT, $custom_type_title = false)
+{
     $colour_code_generate = function ($colour_code) {
         return "\033[{$colour_code}m";
     };
