@@ -164,19 +164,15 @@ function config_hosts_create($name)
     }
     fclose($config_path_file_handler);
 
-    if (isset($config_exists)) {
+    if (isset($config_exists) || file_put_contents($config_path_hosts,
+            config_hosts_generate($name),
+            FILE_APPEND) !== false
+    ) {
         print console_message("Config file \"$config_path_hosts\" was updated.",
             CONSOLE_MESSAGE_SUCCESS);
     } else {
-        if (file_put_contents($config_path_hosts, config_hosts_generate($name),
-                FILE_APPEND) !== false
-        ) {
-            print console_message("Config file \"$config_path_hosts\" was updated.",
-                CONSOLE_MESSAGE_SUCCESS);
-        } else {
-            exit(console_message("Config file \"$config_path_hosts\" updating error. Check permissions.",
-                CONSOLE_MESSAGE_ERROR));
-        }
+        exit(console_message("Config file \"$config_path_hosts\" updating error. Check permissions.",
+            CONSOLE_MESSAGE_ERROR));
     }
 }
 
@@ -206,8 +202,10 @@ function dir_document_root_create($dir_project_document_root_path)
     }
 
     if (mkdir($dir_project_document_root_path, 0777, true)) {
-        print console_message("Project root directory \"$dir_project_document_root_path\" was created with 777 permissions, you can update this manually for security reasons.",
+        print console_message("Project root directory \"$dir_project_document_root_path\" was created.",
             CONSOLE_MESSAGE_SUCCESS);
+        print console_message("Directory \"$dir_project_document_root_path\" was created with \"777\" permissions. Make sure you update this for security reasons.",
+            CONSOLE_MESSAGE_WARNING, 'Note:');
     } else {
         exit(console_message("Project root directory \"$dir_project_document_root_path\" creation error. Check permissions.",
             CONSOLE_MESSAGE_ERROR));
@@ -294,10 +292,14 @@ function path_sanitize($path)
  *
  * @param string $message message to colourise
  * @param string $type type of the message: error, warning, success, info
+ * @param string $custom_type_title custom title prefix before every message
  * @return string colourised message
  */
-function console_message($message, $type = CONSOLE_MESSAGE_DEFAULT)
-{
+function console_message(
+    $message,
+    $type = CONSOLE_MESSAGE_DEFAULT,
+    $custom_type_title = false
+) {
     $colour_code_generate = function ($colour_code) {
         return "\033[{$colour_code}m";
     };
@@ -306,19 +308,24 @@ function console_message($message, $type = CONSOLE_MESSAGE_DEFAULT)
     };
     switch (strtolower($type)) {
         case CONSOLE_MESSAGE_ERROR: { // red
-            return $colourise("Error: $message", '0;31');
+            return $colourise(is_string($custom_type_title) ? "$custom_type_title $message" : "Error: $message",
+                '0;31');
         }
         case CONSOLE_MESSAGE_WARNING: { // yellow
-            return $colourise("Warning: $message", '1;33');
+            return $colourise(is_string($custom_type_title) ? "$custom_type_title $message" : "Warning: $message",
+                '1;33');
         }
         case 'success': { // green
-            return $colourise("Success: $message", '0;32');
+            return $colourise(is_string($custom_type_title) ? "$custom_type_title $message" : "Success: $message",
+                '0;32');
         }
         case CONSOLE_MESSAGE_INFO: { // blue
-            return $colourise("Info: $message", '0;34');
+            return $colourise(is_string($custom_type_title) ? "$custom_type_title $message" : "Info: $message",
+                '0;34');
         }
         default: { // white
-            return $colourise($message, '1;37');
+            return $colourise(is_string($custom_type_title) ? "$custom_type_title $message" : $message,
+                '1;37');
         }
     }
 }
