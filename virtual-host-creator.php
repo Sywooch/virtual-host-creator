@@ -185,30 +185,26 @@ function dir_document_root_create($dir_project_document_root_path)
     if (file_exists($dir_project_document_root_path)) {
         print console_message("Project root directory \"$dir_project_document_root_path\" already exists.",
             CONSOLE_MESSAGE_WARNING);
-        print console_message("Rewrite directory (this operation can harm your data)? (Y/N)");
+        print console_message("Rewrite directory content (this operation will harm your data)? / Don't rewrite directory content? (Y/N)");
         $answer = strtolower(readline());
         while ($answer !== 'y' && $answer !== 'n') {
             print console_message("Please select one of the answers.",
                 CONSOLE_MESSAGE_WARNING);
-            print console_message("Rewrite directory (this operation can harm your data)? (Y/N)");
+            print console_message("Rewrite directory content (this operation will harm your data)? / Don't rewrite directory content? (Y/N)");
             $answer = strtolower(trim(fgets(STDIN)));
         }
         if ($answer === 'y') {
             dir_remove_recursive($dir_project_document_root_path);
-        } elseif ($answer === 'n') {
-            exit(console_message("Process was interrupted by the user.",
-                CONSOLE_MESSAGE_ERROR));
+            if (mkdir($dir_project_document_root_path, 0777, true)) {
+                print console_message("Project root directory \"$dir_project_document_root_path\" was created.",
+                    CONSOLE_MESSAGE_SUCCESS);
+                print console_message("Directory \"$dir_project_document_root_path\" was created with \"777\" permissions. Make sure to fix this for security reasons.",
+                    CONSOLE_MESSAGE_WARNING, 'Note:');
+            } else {
+                exit(console_message("Project root directory \"$dir_project_document_root_path\" creation error. Check permissions.",
+                    CONSOLE_MESSAGE_ERROR));
+            }
         }
-    }
-
-    if (mkdir($dir_project_document_root_path, 0777, true)) {
-        print console_message("Project root directory \"$dir_project_document_root_path\" was created.",
-            CONSOLE_MESSAGE_SUCCESS);
-        print console_message("Directory \"$dir_project_document_root_path\" was created with \"777\" permissions. Make sure to fix this for security reasons.",
-            CONSOLE_MESSAGE_WARNING, 'Note:');
-    } else {
-        exit(console_message("Project root directory \"$dir_project_document_root_path\" creation error. Check permissions.",
-            CONSOLE_MESSAGE_ERROR));
     }
 }
 
